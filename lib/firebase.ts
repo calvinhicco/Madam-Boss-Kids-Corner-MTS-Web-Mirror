@@ -1,19 +1,34 @@
-import { initializeApp } from 'firebase/app'
-import { getFirestore, collection, onSnapshot, doc, getDocs, query, orderBy, enableNetwork, disableNetwork, clearIndexedDbPersistence } from 'firebase/firestore'
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, onSnapshot, doc, getDocs, query, orderBy, enableNetwork, disableNetwork, clearIndexedDbPersistence } from "firebase/firestore";
+import { getAnalytics, isSupported } from "firebase/analytics";
 
-// Firebase configuration - matches the Electron app's Firebase project
+// Your web app's Firebase configuration
+// For Firebase configuration - matches the Electron app's Firebase project
 const firebaseConfig = {
-  apiKey: "AIzaSyBBXWOD7XiXbM7NLUVprZTMD-Mrd5CVWMI",
-  authDomain: "my-students-track-staff-online.firebaseapp.com",
-  projectId: "my-students-track-staff-online",
-  storageBucket: "my-students-track-staff-online.firebasestorage.app",
-  messagingSenderId: "324328206893",
-  appId: "1:324328206893:web:695d726cd2d680bfaa7ea4"
-}
+  apiKey: "AIzaSyA5qGJyTIG8lCok67wG1r6QwhPxQFBG25Q",
+  authDomain: "my-students-mirror.firebaseapp.com",
+  projectId: "my-students-mirror",
+  storageBucket: "my-students-mirror.firebasestorage.app",
+  messagingSenderId: "852857889242",
+  appId: "1:852857889242:web:d691f5c3a13b62366fa0e3",
+  measurementId: "G-6J2JQRG0L9"
+};
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig)
-const db = getFirestore(app)
+const app = initializeApp(firebaseConfig);
+
+// Initialize Analytics only on client side
+let analytics: any = null;
+if (typeof window !== 'undefined') {
+  isSupported().then((supported) => {
+    if (supported) {
+      analytics = getAnalytics(app);
+    }
+  });
+}
+
+const db = getFirestore(app);
 
 export { db }
 
