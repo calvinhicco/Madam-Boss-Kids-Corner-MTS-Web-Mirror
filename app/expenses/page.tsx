@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Button } from '@/components/ui/button'
 import { ReadonlyTooltip } from '@/components/Readonly'
 import { Receipt, Plus, Loader2 } from 'lucide-react'
-import { format } from 'date-fns'
+import { format, isValid } from 'date-fns'
 
 interface Expense {
   id: string
@@ -127,8 +127,15 @@ export default function ExpensesPage() {
     }).format(amount)
   }
 
-  const formatDate = (dateString: string) => {
-    return format(new Date(dateString), 'MMM dd, yyyy')
+  const formatDate = (dateString: string | undefined | null) => {
+    try {
+      if (!dateString) return '-'
+      const d = new Date(dateString)
+      if (!isValid(d)) return '-'
+      return format(d, 'MMM dd, yyyy')
+    } catch {
+      return '-'
+    }
   }
 
   if (loading) {

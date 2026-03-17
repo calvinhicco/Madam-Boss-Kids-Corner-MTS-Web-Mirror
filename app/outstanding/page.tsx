@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import { ReadonlyTooltip } from '@/components/Readonly'
 import { AlertTriangle, Plus, DollarSign, User, Phone, FileText, AlertCircle, Loader2 } from 'lucide-react'
 import { calculateOutstandingFromEnrollment, getPaymentStatus, BillingCycle, type Student, type AppSettings } from '@/lib/calculations'
+import { isValid } from "date-fns"
 
 interface OutstandingStudent {
   id: string
@@ -186,7 +187,18 @@ export default function OutstandingPage() {
                           <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-4 text-xs text-gray-500 mt-1">
                             <span>Class: {classGroup?.name || "Unassigned"}</span>
                             <span>ID: {student.id}</span>
-                            <span>Admitted: {new Date(student.admissionDate).toLocaleDateString()}</span>
+                            <span>
+                              Admitted:{" "}
+                              {(() => {
+                                try {
+                                  const d = new Date(student.admissionDate)
+                                  if (!isValid(d)) return "-"
+                                  return d.toLocaleDateString()
+                                } catch {
+                                  return "-"
+                                }
+                              })()}
+                            </span>
                           </div>
                           {student.hasTransport && (
                             <div className="text-xs text-orange-600 mt-1">
