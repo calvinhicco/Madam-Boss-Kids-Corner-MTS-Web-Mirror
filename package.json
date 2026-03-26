@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "my-students-web-mirror",
+  "name": "madam-boss-kids-corner-web-mirror",
   "version": "0.1.0",
   "private": true,
   "scripts": {

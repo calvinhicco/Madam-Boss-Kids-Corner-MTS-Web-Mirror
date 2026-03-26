@@ -85,11 +85,6 @@ export default function ExtraBillingPage() {
             ({billingItems.length} total)
           </span>
         </h1>
-        <ReadonlyTooltip>
-          <Button disabled>
-            <Plus className="w-4 h-4 mr-2"/> Add item
-          </Button>
-        </ReadonlyTooltip>
       </div>
 
       {billingItems.length === 0 ? (

@@ -212,18 +212,18 @@ export function DashboardTotals() {
       
       {/* Existing Dashboard Cards */}
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <Card>
+        <Card className="bg-brand-gradient text-white border-0 shadow-lg">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Students</CardTitle>
-            <Users className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="text-sm font-medium text-white">Total Students</CardTitle>
+            <Users className="h-4 w-4 text-white/80" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{totalStudents}</div>
+            <div className="text-2xl font-bold text-white">{totalStudents}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-gradient-to-br from-red-500 to-red-600 text-white border-0 shadow-lg">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Expenses</CardTitle>
+            <CardTitle className="text-sm font-medium text-white">Total Expenses</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -232,7 +232,7 @@ export function DashboardTotals() {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
+              className="h-4 w-4 text-white/80"
             >
               <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
               <circle cx="9" cy="7" r="4" />
@@ -240,12 +240,12 @@ export function DashboardTotals() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${totalExpenses.toLocaleString()}</div>
+            <div className="text-2xl font-bold text-white">${totalExpenses.toLocaleString()}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-gradient-to-br from-purple-400 to-purple-500 text-white border-0 shadow-lg">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Extra Billing</CardTitle>
+            <CardTitle className="text-sm font-medium text-white">Extra Billing</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -254,7 +254,7 @@ export function DashboardTotals() {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
+              className="h-4 w-4 text-white/80"
             >
               <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
               <circle cx="9" cy="7" r="4" />
@@ -262,12 +262,12 @@ export function DashboardTotals() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{totalExtraBilling}</div>
+            <div className="text-2xl font-bold text-white">{totalExtraBilling}</div>
           </CardContent>
         </Card>
-        <Card>
+        <Card className="bg-gradient-to-br from-red-400 to-red-500 text-white border-0 shadow-lg">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Outstanding</CardTitle>
+            <CardTitle className="text-sm font-medium text-white">Outstanding</CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -276,7 +276,7 @@ export function DashboardTotals() {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth="2"
-              className="h-4 w-4 text-muted-foreground"
+              className="h-4 w-4 text-white/80"
             >
               <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
               <circle cx="9" cy="7" r="4" />
@@ -284,7 +284,7 @@ export function DashboardTotals() {
             </svg>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${totalOutstanding.toLocaleString()}</div>
+            <div className="text-2xl font-bold text-white">${totalOutstanding.toLocaleString()}</div>
           </CardContent>
         </Card>
       </div>

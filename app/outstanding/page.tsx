@@ -111,11 +111,6 @@ export default function OutstandingPage() {
         <h1 className="text-xl sm:text-2xl font-semibold flex items-center gap-2">
           <AlertTriangle className="w-5 h-5"/> Outstanding Students
         </h1>
-        <ReadonlyTooltip>
-          <Button disabled size="sm" className="w-full sm:w-auto">
-            <Plus className="w-4 h-4 mr-2"/> Record Payment
-          </Button>
-        </ReadonlyTooltip>
       </div>
 
       <Card>

@@ -27,9 +27,6 @@ export default function StudentDetailsPage() {
         <h1 className="text-2xl font-semibold flex items-center gap-2">
           <User className="w-5 h-5"/> Student Details
         </h1>
-        <ReadonlyTooltip>
-          <Button disabled>Save</Button>
-        </ReadonlyTooltip>
       </div>
 
       <Card>

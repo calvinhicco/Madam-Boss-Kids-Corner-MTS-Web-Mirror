@@ -15,16 +15,6 @@ export default function DashboardPage() {
             Overview of your school's financials and activities
           </p>
         </div>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Button disabled variant="outline">
-              <Plus className="w-4 h-4 mr-2" /> Add Record
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Available in Desktop (Electron) only</p>
-          </TooltipContent>
-        </Tooltip>
       </div>
 
       {/* Summary Cards */}
