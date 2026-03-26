@@ -48,7 +48,7 @@ export function Nav() {
             <div className="w-9 h-9 rounded-xl bg-brand-gradient flex items-center justify-center shadow-md">
               <GraduationCap className="w-5 h-5 text-white" />
             </div>
-            <span className="text-lg font-bold text-brand-gradient">Madam Boss Kids Corner</span>
+            <span className="text-lg font-bold text-brand-gradient">My Students Track</span>
           </Link>
           
           <div className="flex items-center gap-2">
@@ -83,7 +83,7 @@ export function Nav() {
               <div className="w-9 h-9 rounded-xl bg-brand-gradient flex items-center justify-center shadow-md">
                 <GraduationCap className="w-5 h-5 text-white" />
               </div>
-              <span className="text-lg font-bold text-brand-gradient">Madam Boss Kids Corner</span>
+              <span className="text-lg font-bold text-brand-gradient">My Students Track</span>
             </Link>
             
             <Button

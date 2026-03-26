@@ -1,6 +1,6 @@
-# Madam Boss Kids Corner Web Mirror
+# My Students Track
 
-A web-based mirror application for the Madam Boss Kids Corner school management system.
+A web-based mirror application for the My Students Track school management system.
 
 ## Deployment Status
 - Last updated: September 12, 2025, featuring real-time data synchronization and comprehensive staff log management.
