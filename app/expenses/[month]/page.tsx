@@ -23,9 +23,9 @@ interface Expense {
 }
 
 type PageProps = {
-  params: Promise<{
+  params: {
     month: string
-  }>
+  }
 }
 
 function safeParseDate(dateString: string) {
@@ -37,17 +37,12 @@ export default function ExpensesMonthPage({ params }: PageProps) {
   const [expenses, setExpenses] = useState<Expense[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [monthNumber, setMonthNumber] = useState<string>('')
 
   const now = new Date()
   const currentYear = now.getFullYear()
   const currentMonthIndex = now.getMonth()
 
-  useEffect(() => {
-    params.then((resolvedParams) => {
-      setMonthNumber(resolvedParams.month)
-    })
-  }, [params])
+  const monthNumber = params.month
   const monthIndex = useMemo(() => {
     const parsed = Number.parseInt(monthNumber, 10)
     if (!Number.isFinite(parsed)) return null
@@ -63,11 +58,6 @@ export default function ExpensesMonthPage({ params }: PageProps) {
   const isMonthAllowed = monthIndex !== null && monthIndex <= currentMonthIndex
 
   useEffect(() => {
-    if (!monthNumber) {
-      // Params not yet resolved
-      return
-    }
-
     if (!isMonthAllowed) {
       setLoading(false)
       setError('This month is not available yet.')
@@ -111,7 +101,7 @@ export default function ExpensesMonthPage({ params }: PageProps) {
       if (unsubscribe) unsubscribe()
       clearInterval(autoRefreshInterval)
     }
-  }, [currentYear, isMonthAllowed, monthIndex, monthNumber])
+  }, [currentYear, isMonthAllowed, monthIndex])
 
   const activeExpenses = expenses.filter((expense) => !expense.isReversed)
   const reversedExpenses = expenses.filter((expense) => expense.isReversed)
