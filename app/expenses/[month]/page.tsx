@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link'
-import { useEffect, useMemo, useState } from 'react'
+import { use, useEffect, useMemo, useState } from 'react'
 import { getInitial, subscribe } from '@/lib/realtime'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -10,7 +10,8 @@ import { format } from 'date-fns'
 
 interface Expense {
   id: string
-  description: string
+  description?: string
+  purpose?: string
   amount: number
   date: string
   category: string
@@ -22,9 +23,9 @@ interface Expense {
 }
 
 type PageProps = {
-  params: {
+  params: Promise<{
     month: string
-  }
+  }>
 }
 
 function safeParseDate(dateString: string) {
@@ -41,7 +42,7 @@ export default function ExpensesMonthPage({ params }: PageProps) {
   const currentYear = now.getFullYear()
   const currentMonthIndex = now.getMonth()
 
-  const monthNumber = params.month
+  const { month: monthNumber } = use(params)
   const monthIndex = useMemo(() => {
     const parsed = Number.parseInt(monthNumber, 10)
     if (!Number.isFinite(parsed)) return null
@@ -107,6 +108,16 @@ export default function ExpensesMonthPage({ params }: PageProps) {
 
   const totalActive = activeExpenses.reduce((sum, expense) => sum + (expense.amount || 0), 0)
   const totalReversed = reversedExpenses.reduce((sum, expense) => sum + (expense.amount || 0), 0)
+
+  // Group by category
+  const categoryTotals = useMemo(() => {
+    const totals: Record<string, number> = {}
+    activeExpenses.forEach((exp) => {
+      const cat = exp.category || 'Uncategorized'
+      totals[cat] = (totals[cat] || 0) + (exp.amount || 0)
+    })
+    return Object.entries(totals).sort((a, b) => b[1] - a[1])
+  }, [activeExpenses])
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -205,6 +216,24 @@ export default function ExpensesMonthPage({ params }: PageProps) {
             </CardContent>
           </Card>
 
+          {categoryTotals.length > 0 && (
+            <Card>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-lg">Expenses by Category</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {categoryTotals.map(([category, total]) => (
+                    <div key={category} className="bg-muted rounded-lg p-3">
+                      <p className="text-sm text-muted-foreground capitalize">{category}</p>
+                      <p className="text-lg font-semibold">{formatCurrency(total)}</p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {expenses.map((expense) => (
             <Card
               key={expense.id}
@@ -214,7 +243,7 @@ export default function ExpensesMonthPage({ params }: PageProps) {
                 <div className="flex justify-between items-start">
                   <div>
                     <CardTitle className={`text-lg ${expense.isReversed ? 'text-red-700' : ''}`}>
-                      {expense.description}
+                      {expense.description || expense.purpose || 'Untitled Expense'}
                       {expense.isReversed && <span className="ml-2 text-sm text-red-600">(REVERSED)</span>}
                     </CardTitle>
                     <CardDescription className="mt-1">
