@@ -48,8 +48,11 @@ export default function ExtraBillingPage() {
     }).format(amount)
   }
 
-  const formatDate = (dateString: string) => {
-    return format(new Date(dateString), 'MMM dd, yyyy')
+  const formatDate = (dateString: string | undefined | null) => {
+    if (!dateString) return '—'
+    const date = new Date(dateString)
+    if (Number.isNaN(date.getTime())) return '—'
+    return format(date, 'MMM dd, yyyy')
   }
 
   if (loading) {

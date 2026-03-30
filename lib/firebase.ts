@@ -1,14 +1,16 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, collection, onSnapshot, doc, getDocs, query, orderBy, enableNetwork, disableNetwork, clearIndexedDbPersistence } from 'firebase/firestore'
 
-// Firebase configuration - matches the Electron app's Firebase project
+// Firebase configuration
+// In Vercel/Netlify, set NEXT_PUBLIC_FIREBASE_* env vars to point the web mirror at the correct project.
+// Fallback values keep local dev working without env vars.
 const firebaseConfig = {
-  apiKey: "AIzaSyBBXWOD7XiXbM7NLUVprZTMD-Mrd5CVWMI",
-  authDomain: "my-students-track-staff-online.firebaseapp.com",
-  projectId: "my-students-track-staff-online",
-  storageBucket: "my-students-track-staff-online.firebasestorage.app",
-  messagingSenderId: "324328206893",
-  appId: "1:324328206893:web:695d726cd2d680bfaa7ea4"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY ?? "AIzaSyBBXWOD7XiXbM7NLUVprZTMD-Mrd5CVWMI",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN ?? "my-students-track-staff-online.firebaseapp.com",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID ?? "my-students-track-staff-online",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET ?? "my-students-track-staff-online.firebasestorage.app",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ?? "324328206893",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID ?? "1:324328206893:web:695d726cd2d680bfaa7ea4",
 }
 
 // Initialize Firebase

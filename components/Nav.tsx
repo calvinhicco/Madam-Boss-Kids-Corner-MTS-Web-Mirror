@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Home, Users, Receipt, FileText, AlertTriangle, X, GraduationCap } from 'lucide-react'
+import { Home, Users, Receipt, FileText, AlertTriangle, X, GraduationCap, Boxes } from 'lucide-react'
 import { useState } from 'react'
 
 const items = [
@@ -12,6 +12,11 @@ const items = [
     href: '/' as const, 
     label: 'Dashboard',
     icon: Home 
+  },
+  { 
+    href: '/inventory' as const, 
+    label: 'Inventory',
+    icon: Boxes
   },
   { 
     href: '/students' as const, 
