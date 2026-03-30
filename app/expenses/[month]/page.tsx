@@ -1,7 +1,7 @@
 "use client"
 
 import Link from 'next/link'
-import { use, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { getInitial, subscribe } from '@/lib/realtime'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -37,12 +37,17 @@ export default function ExpensesMonthPage({ params }: PageProps) {
   const [expenses, setExpenses] = useState<Expense[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [monthNumber, setMonthNumber] = useState<string>('')
 
   const now = new Date()
   const currentYear = now.getFullYear()
   const currentMonthIndex = now.getMonth()
 
-  const { month: monthNumber } = use(params)
+  useEffect(() => {
+    params.then((resolvedParams) => {
+      setMonthNumber(resolvedParams.month)
+    })
+  }, [params])
   const monthIndex = useMemo(() => {
     const parsed = Number.parseInt(monthNumber, 10)
     if (!Number.isFinite(parsed)) return null
@@ -58,6 +63,11 @@ export default function ExpensesMonthPage({ params }: PageProps) {
   const isMonthAllowed = monthIndex !== null && monthIndex <= currentMonthIndex
 
   useEffect(() => {
+    if (!monthNumber) {
+      // Params not yet resolved
+      return
+    }
+
     if (!isMonthAllowed) {
       setLoading(false)
       setError('This month is not available yet.')
@@ -101,7 +111,7 @@ export default function ExpensesMonthPage({ params }: PageProps) {
       if (unsubscribe) unsubscribe()
       clearInterval(autoRefreshInterval)
     }
-  }, [currentYear, isMonthAllowed, monthIndex])
+  }, [currentYear, isMonthAllowed, monthIndex, monthNumber])
 
   const activeExpenses = expenses.filter((expense) => !expense.isReversed)
   const reversedExpenses = expenses.filter((expense) => expense.isReversed)
